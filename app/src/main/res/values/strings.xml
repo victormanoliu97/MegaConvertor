@@ -9,4 +9,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="convert_button_text">Convert</string>
+    <string name="input_hint">Input</string>
+    <string name="length_textview_text">Length</string>
+    <string name="to_text_view_text">To</string>
+    <string name="pressure_text_view_text">Pressure</string>
+    <string name="temperature_text_view_text">Temperature</string>
+    <string name="result_edit_text_hint">Result</string>
 </resources>
