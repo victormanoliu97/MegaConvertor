@@ -10,7 +10,7 @@
         android:inputType="text"
         android:hint="@string/input_hint"
         android:ems="14"
-        android:id="@+id/inputUnit"
+        android:id="@+id/input_id"
         android:layout_alignParentTop="true"
         android:layout_marginTop="30dp"/>
 
@@ -22,6 +22,7 @@
         android:height="10dp"
         android:ems="5"
         android:text="@string/convert_button_text"
+        android:id="@+id/convert_button_id"
         android:background="#0080ff"/>
 
 
@@ -140,7 +141,7 @@
         android:inputType="text"
         android:hint="@string/result_edit_text_hint"
         android:ems="14"
-        android:id="@+id/resultUnit"
+        android:id="@+id/result_id"
         android:layout_alignParentTop="true"
         android:layout_marginTop="570dp"/>
 
