@@ -2,14 +2,13 @@ package com.example.megaconvertor.utils;
 
 import com.example.megaconvertor.model.MeasuresUnitConstant;
 
-import java.math.BigDecimal;
-
 public class PhysicUnitConvertor {
 
     public Double convert(String from, String to, Double inputValue) {
         if (from.equalsIgnoreCase(to)) {
             return inputValue;
         }
+        //Lengths
         if(from.equalsIgnoreCase(MeasuresUnitConstant.METER) && to.equalsIgnoreCase(MeasuresUnitConstant.CM)) {
             return inputValue * 100;
         }
@@ -74,6 +73,52 @@ public class PhysicUnitConvertor {
         if(from.equalsIgnoreCase(MeasuresUnitConstant.YARDS) && to.equalsIgnoreCase(MeasuresUnitConstant.INCHES)) {
             return inputValue * 36;
         }
+
+        //Temperature
+        if(from.equalsIgnoreCase(MeasuresUnitConstant.CELSIUS) && to.equalsIgnoreCase(MeasuresUnitConstant.FAHRENHEIT)) {
+            return inputValue * 1.8 + 32;
+        }
+        if(from.equalsIgnoreCase(MeasuresUnitConstant.CELSIUS) && to.equalsIgnoreCase(MeasuresUnitConstant.KELVIN)) {
+            return inputValue + 273.15;
+        }
+
+        if(from.equalsIgnoreCase(MeasuresUnitConstant.FAHRENHEIT) && to.equalsIgnoreCase(MeasuresUnitConstant.CELSIUS)) {
+            return (inputValue - 32) / 1.8;
+        }
+        if(from.equalsIgnoreCase(MeasuresUnitConstant.FAHRENHEIT) && to.equalsIgnoreCase(MeasuresUnitConstant.KELVIN)) {
+            return (inputValue + 459.67) * 5/9;
+        }
+
+        if(from.equalsIgnoreCase(MeasuresUnitConstant.KELVIN) && to.equalsIgnoreCase(MeasuresUnitConstant.CELSIUS)) {
+            return inputValue - 273.15;
+        }
+        if(from.equalsIgnoreCase(MeasuresUnitConstant.KELVIN) && to.equalsIgnoreCase(MeasuresUnitConstant.FAHRENHEIT)) {
+            return inputValue * 9/5 - 459.67;
+        }
+
+        //Pressure
+        if(from.equalsIgnoreCase(MeasuresUnitConstant.PASCAL) && to.equalsIgnoreCase(MeasuresUnitConstant.ATM)) {
+            return inputValue * 9.86923267;
+        }
+        if(from.equalsIgnoreCase(MeasuresUnitConstant.PASCAL) && to.equalsIgnoreCase(MeasuresUnitConstant.TORR)) {
+            return inputValue * 0.00750061683;
+        }
+
+        if(from.equalsIgnoreCase(MeasuresUnitConstant.ATM) && to.equalsIgnoreCase(MeasuresUnitConstant.PASCAL)) {
+            return inputValue * 133.32268;
+        }
+        if(from.equalsIgnoreCase(MeasuresUnitConstant.ATM) && to.equalsIgnoreCase(MeasuresUnitConstant.TORR)) {
+            return inputValue * 760;
+        }
+
+        if(from.equalsIgnoreCase(MeasuresUnitConstant.TORR) && to.equalsIgnoreCase(MeasuresUnitConstant.ATM)) {
+            return inputValue * 0.00131578947;
+        }
+        if(from.equalsIgnoreCase(MeasuresUnitConstant.TORR) && to.equalsIgnoreCase(MeasuresUnitConstant.PASCAL)) {
+            return inputValue * 133.322368;
+        }
+
+
         return 0.0;
     }
 }

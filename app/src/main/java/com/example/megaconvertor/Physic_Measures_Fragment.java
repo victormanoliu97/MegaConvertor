@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.megaconvertor.model.MeasuresUnitConstant;
 import com.example.megaconvertor.utils.PhysicUnitConvertor;
@@ -87,13 +88,17 @@ public class Physic_Measures_Fragment extends Fragment {
         pressurefromDropdownSpinner.setAdapter(pressureAdapter);
         pressureToDropdownSpinner.setAdapter(pressureAdapter);
 
+        resultEditText.setEnabled(false);
 
+
+        //Length
         lengthFromDropdownSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 0) {
                     selectedFromUnit = null;
                     selectedToUnit = null;
+                    lengthToDropdownSpinner.setSelection(0);
                     temperatureFromDropdownSpinner.setEnabled(true);
                     temperatureToDropdownSpinner.setEnabled(true);
                     pressurefromDropdownSpinner.setEnabled(true);
@@ -114,6 +119,7 @@ public class Physic_Measures_Fragment extends Fragment {
             }
         });
 
+
         lengthToDropdownSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -126,12 +132,96 @@ public class Physic_Measures_Fragment extends Fragment {
             }
         });
 
+        // Pressure
+        pressurefromDropdownSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0) {
+                    selectedFromUnit = null;
+                    selectedToUnit = null;
+                    pressureToDropdownSpinner.setSelection(0);
+                    temperatureFromDropdownSpinner.setEnabled(true);
+                    temperatureToDropdownSpinner.setEnabled(true);
+                    lengthFromDropdownSpinner.setEnabled(true);
+                    lengthToDropdownSpinner.setEnabled(true);
+                }
+                else {
+                    selectedFromUnit = pressurefromDropdownSpinner.getSelectedItem().toString();
+                    temperatureFromDropdownSpinner.setEnabled(false);
+                    temperatureToDropdownSpinner.setEnabled(false);
+                    lengthFromDropdownSpinner.setEnabled(false);
+                    lengthToDropdownSpinner.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        pressureToDropdownSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedToUnit = pressureToDropdownSpinner.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        //Temperature
+        temperatureFromDropdownSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedFromUnit = null;
+                selectedToUnit = null;
+                temperatureToDropdownSpinner.setSelection(0);
+                pressurefromDropdownSpinner.setEnabled(true);
+                pressureToDropdownSpinner.setEnabled(true);
+                lengthFromDropdownSpinner.setEnabled(true);
+                lengthToDropdownSpinner.setEnabled(true);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedFromUnit = temperatureFromDropdownSpinner.getSelectedItem().toString();
+                pressurefromDropdownSpinner.setEnabled(false);
+                pressureToDropdownSpinner.setEnabled(false);
+                lengthFromDropdownSpinner.setEnabled(false);
+                lengthToDropdownSpinner.setEnabled(false);
+            }
+        });
+
+        temperatureToDropdownSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedToUnit = temperatureToDropdownSpinner.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         convertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Double inputed = Double.valueOf(inputEditText.getText().toString());
-                String result = Double.toString(physicUnitConvertor.convert(selectedFromUnit, selectedToUnit, inputed));
-                resultEditText.setText(result);
+                if(selectedFromUnit == null || selectedToUnit == null) {
+                    Toast.makeText(getActivity(), "You need to select some units", Toast.LENGTH_SHORT).show();
+                }
+                else if(inputEditText.getText().toString().matches("")) {
+                    Toast.makeText(getActivity(), "You need to enter a value", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Double inputed = Double.valueOf(inputEditText.getText().toString());
+                    String result = Double.toString(physicUnitConvertor.convert(selectedFromUnit, selectedToUnit, inputed));
+                    resultEditText.setText(result);
+                }
             }
         });
 

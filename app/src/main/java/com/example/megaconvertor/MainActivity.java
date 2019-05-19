@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity implements Physic_Measures_F
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_currency:
-                    mTextMessage.setText(R.string.currencies);
+                    fragment = new Currencies_Fragment();
+                    loadFragment(fragment);
                     return true;
             }
             return false;

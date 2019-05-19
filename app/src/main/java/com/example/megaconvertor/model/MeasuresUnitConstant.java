@@ -17,15 +17,15 @@ public  class MeasuresUnitConstant {
 
     // Temperature
     private final List<String> temperatureUnits = new ArrayList<>();
-    private final static String CELSIUS = "CELSIUS";
-    private final static String KELVIN = "KELVIN";
-    private final static String FAHRENHEIT = "FAHRENHEIT";
+    public final static String CELSIUS = "CELSIUS";
+    public final static String KELVIN = "KELVIN";
+    public final static String FAHRENHEIT = "FAHRENHEIT";
 
     //Pressure
     private final List<String> pressureUnits = new ArrayList<>();
-    private final static String PASCAL = "PA";
-    private final static String ATM = "ATM";
-    private final static String TORR = "TORR";
+    public final static String PASCAL = "PA";
+    public final static String ATM = "ATM";
+    public final static String TORR = "TORR";
 
 
     public List<String> returnLengthUnits() {
