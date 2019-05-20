@@ -27,6 +27,15 @@ public  class MeasuresUnitConstant {
     public final static String ATM = "ATM";
     public final static String TORR = "TORR";
 
+    //Currencies
+    private final List<String> currencyUnits = new ArrayList<>();
+    public final static String EURO = "EUR";
+    public final static String USD = "USD";
+    public final static String GBP = "GBP";
+    public final static String RON = "RON";
+    public final static String HUF = "HUF";
+    public final static String CHF = "CHF";
+
 
     public List<String> returnLengthUnits() {
         lengthUnits.add(NOTHING_SELECTED);
@@ -52,5 +61,16 @@ public  class MeasuresUnitConstant {
         pressureUnits.add(ATM);
         pressureUnits.add(TORR);
         return pressureUnits;
+    }
+
+    public List<String> returnCurencyUnits() {
+        currencyUnits.add(NOTHING_SELECTED);
+        pressureUnits.add(EURO);
+        pressureUnits.add(USD);
+        pressureUnits.add(GBP);
+        pressureUnits.add(RON);
+        pressureUnits.add(HUF);
+        pressureUnits.add(CHF);
+        return currencyUnits;
     }
 }

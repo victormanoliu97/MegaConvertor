@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements Physic_Measures_Fragment.OnFragmentInteractionListener, MainFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements Physic_Measures_Fragment.OnFragmentInteractionListener, HistoryFragment.OnFragmentInteractionListener, Currencies_Fragment.OnFragmentInteractionListener, MainFragment.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
 
@@ -32,6 +31,10 @@ public class MainActivity extends AppCompatActivity implements Physic_Measures_F
                     return true;
                 case R.id.navigation_currency:
                     fragment = new Currencies_Fragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_history:
+                    fragment = new HistoryFragment();
                     loadFragment(fragment);
                     return true;
             }

@@ -1,5 +1,6 @@
 package com.example.megaconvertor;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.megaconvertor.database.AppDatabase;
+import com.example.megaconvertor.entity.ConversionResults;
 import com.example.megaconvertor.model.MeasuresUnitConstant;
 import com.example.megaconvertor.utils.PhysicUnitConvertor;
 
@@ -55,6 +58,8 @@ public class Physic_Measures_Fragment extends Fragment {
 
 
         View v = inflater.inflate(R.layout.fragment_physic__measures, container, false);
+
+        final AppDatabase appDatabase = Room.databaseBuilder(getContext(), AppDatabase.class, "my-db").allowMainThreadQueries().build();
 
         final Button convertButton = v.findViewById(R.id.convert_button_id);
 
@@ -221,6 +226,14 @@ public class Physic_Measures_Fragment extends Fragment {
                     Double inputed = Double.valueOf(inputEditText.getText().toString());
                     String result = Double.toString(physicUnitConvertor.convert(selectedFromUnit, selectedToUnit, inputed));
                     resultEditText.setText(result);
+
+                    ConversionResults historyResult = new ConversionResults();
+                    historyResult.setFromUnit(selectedFromUnit);
+                    historyResult.setFromValue(inputed);
+                    historyResult.setToUnit(selectedToUnit);
+                    historyResult.setResultedValue(result);
+
+                    appDatabase.conversionResultsDAO().insertResult(historyResult);
                 }
             }
         });
@@ -254,7 +267,6 @@ public class Physic_Measures_Fragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 

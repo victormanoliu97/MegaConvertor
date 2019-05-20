@@ -1,14 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Currencies_Fragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="@string/input_hint"
+        android:ems="14"
+        android:id="@+id/input_currency_id"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"/>
+
+    <Button
+        android:layout_width="104dp"
+        android:layout_height="58dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:height="10dp"
+        android:ems="5"
+        android:text="@string/convert_button_text"
+        android:id="@+id/convert_currency_button_id"
+        android:background="#0080ff"/>
+
+    <!-- Length !-->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/currency_textview_text"
+        android:ems="50"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginTop="100dp"/>
 
-</FrameLayout>
+    <Spinner
+        android:id="@+id/from_currency_spinner"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:layout_width="38dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="170dp"
+        android:text="@string/to_text_view_text"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/to_currency_spinner"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginStart="290dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/result_edit_text_hint"
+        android:ems="14"
+        android:id="@+id/result_currency_id"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="250dp"/>
+
+</RelativeLayout>

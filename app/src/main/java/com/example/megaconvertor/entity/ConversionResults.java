@@ -60,4 +60,9 @@ public class ConversionResults {
     public void setResultedValue(String resultedValue) {
         this.resultedValue = resultedValue;
     }
+
+    @Override
+    public String toString() {
+        return fromValue + " " + fromUnit + " " + "TO " + resultedValue + " " + toUnit;
+    }
 }

@@ -14,6 +14,6 @@ public interface ConversionResultsDAO {
     @Insert
     void insertResult(ConversionResults entity);
 
-    @Query("SELECT * FROM ConversionResults")
+    @Query("SELECT * FROM ConversionResults ORDER BY id LIMIT 2")
     List<ConversionResults> getAll();
 }

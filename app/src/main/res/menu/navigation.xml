@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_currency"
         android:title="@string/currencies" />
 
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/history" />
+
 </menu>
