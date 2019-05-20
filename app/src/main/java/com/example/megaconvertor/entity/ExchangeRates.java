@@ -58,6 +58,6 @@ public class ExchangeRates {
 
     @Override
     public String toString() {
-        return base + " -> " + symbol + " " + value;
+        return base + " -> " + symbol + ":" + value;
     }
 }

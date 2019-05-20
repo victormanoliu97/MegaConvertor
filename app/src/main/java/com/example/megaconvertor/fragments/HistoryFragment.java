@@ -12,11 +12,7 @@ import android.widget.EditText;
 
 import com.example.megaconvertor.R;
 import com.example.megaconvertor.database.AppDatabase;
-import com.example.megaconvertor.utils.CurrencyConverterService;
-
-import org.json.JSONException;
-
-import java.io.IOException;
+import com.example.megaconvertor.utils.CurrencyConverter;
 
 
 public class HistoryFragment extends Fragment {
@@ -38,16 +34,16 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         final AppDatabase appDatabase = Room.databaseBuilder(getContext(), AppDatabase.class, "my-db").allowMainThreadQueries().build();
-        final CurrencyConverterService latestCurrencyRatesService = new CurrencyConverterService();
 
         View v = inflater.inflate(R.layout.fragment_history, container, false);
-        EditText historyTextView = v.findViewById(R.id.history_id);
-        EditText exchangeTextView = v.findViewById(R.id.exchange_hist_id);
+        EditText physicHistoryTextView = v.findViewById(R.id.history_id);
+        EditText currencyExchangeTextView = v.findViewById(R.id.exchange_hist_id);
 
-        historyTextView.setEnabled(false);
-        exchangeTextView.setEnabled(false);
+        physicHistoryTextView.setEnabled(false);
+        currencyExchangeTextView.setEnabled(false);
 
-        historyTextView.setText(appDatabase.conversionResultsDAO().getAll().toString());
+        physicHistoryTextView.setText(appDatabase.conversionResultsDAO().getMostRecent().toString());
+        currencyExchangeTextView.setText(appDatabase.exchangeRatesDAO().getMostRecent().toString());
 
 
         return v;

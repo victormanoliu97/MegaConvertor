@@ -1,5 +1,6 @@
 package com.example.megaconvertor.fragments;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,8 +17,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.megaconvertor.R;
+import com.example.megaconvertor.database.AppDatabase;
+import com.example.megaconvertor.entity.ExchangeRates;
 import com.example.megaconvertor.model.MeasuresUnitConstant;
-import com.example.megaconvertor.utils.CurrencyConverterService;
+import com.example.megaconvertor.utils.CurrencyConverter;
 import com.google.gson.JsonElement;
 
 import org.json.JSONException;
@@ -31,7 +34,7 @@ public class Currencies_Fragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     MeasuresUnitConstant measuresUnitConstant = new MeasuresUnitConstant();
-    CurrencyConverterService currencyConverterService = new CurrencyConverterService();
+    CurrencyConverter currencyConverterService = new CurrencyConverter();
 
     List<String> currencyUnitTextList = measuresUnitConstant.returnCurrencyUnits();
     String[] currencyUnitTexts = new String[currencyUnitTextList.size()];
@@ -53,6 +56,8 @@ public class Currencies_Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_currencies, container, false);
+
+        final AppDatabase appDatabase = Room.databaseBuilder(getContext(), AppDatabase.class, "my-db").allowMainThreadQueries().build();
 
         final Button convertButton = v.findViewById(R.id.convert_currency_button_id);
 
@@ -100,9 +105,11 @@ public class Currencies_Fragment extends Fragment {
             }
         });
 
+
         convertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Double conversionRate = (double) 0;
                 if(selectedFromUnit == null || selectedToUnit == null) {
                     Toast.makeText(getActivity(), "You need to select some units", Toast.LENGTH_SHORT).show();
                 }
@@ -120,7 +127,6 @@ public class Currencies_Fragment extends Fragment {
                         StrictMode.setThreadPolicy(policy);
 
                         String result = "";
-                        Double conversionRate = (double) 0;
                         try {
                             JsonElement conversionElement = currencyConverterService.getLatestCurrencyRates(selectedFromUnit, selectedToUnit).get("rates");
                             conversionRate = Double.valueOf(conversionElement.getAsJsonObject().get(selectedToUnit).toString());
@@ -133,6 +139,13 @@ public class Currencies_Fragment extends Fragment {
                         result = String.valueOf(inputed * conversionRate);
                         resultEditText.setText(result);
                     }
+                    //Save currency as history
+                    ExchangeRates exchangeRateHistEntity = new ExchangeRates();
+                    exchangeRateHistEntity.setBase(selectedFromUnit);
+                    exchangeRateHistEntity.setSymbol(selectedToUnit);
+                    exchangeRateHistEntity.setValue(conversionRate);
+
+                    appDatabase.exchangeRatesDAO().insertResult(exchangeRateHistEntity);
                 }
             }
         });

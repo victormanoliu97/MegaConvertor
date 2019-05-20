@@ -15,5 +15,5 @@ public interface ExchangeRatesDAO {
     void insertResult(ExchangeRates entity);
 
     @Query("SELECT * FROM ConversionResults ORDER BY id LIMIT 1")
-    List<ExchangeRates> getAll();
+    List<ExchangeRates> getMostRecent();
 }
