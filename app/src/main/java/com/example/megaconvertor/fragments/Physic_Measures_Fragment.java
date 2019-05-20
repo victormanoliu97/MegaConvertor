@@ -1,4 +1,4 @@
-package com.example.megaconvertor;
+package com.example.megaconvertor.fragments;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.megaconvertor.R;
 import com.example.megaconvertor.database.AppDatabase;
 import com.example.megaconvertor.entity.ConversionResults;
 import com.example.megaconvertor.model.MeasuresUnitConstant;

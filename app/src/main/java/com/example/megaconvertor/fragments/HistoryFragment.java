@@ -1,5 +1,6 @@
-package com.example.megaconvertor;
+package com.example.megaconvertor.fragments;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,20 +8,25 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 
-import java.util.List;
+import com.example.megaconvertor.R;
+import com.example.megaconvertor.database.AppDatabase;
+import com.example.megaconvertor.utils.CurrencyConverterService;
+
+import org.json.JSONException;
+
+import java.io.IOException;
 
 
-public class Currencies_Fragment extends Fragment {
+public class HistoryFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Currencies_Fragment() {
+    public HistoryFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,17 +37,20 @@ public class Currencies_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_currencies, container, false);
+        final AppDatabase appDatabase = Room.databaseBuilder(getContext(), AppDatabase.class, "my-db").allowMainThreadQueries().build();
+        final CurrencyConverterService latestCurrencyRatesService = new CurrencyConverterService();
 
-        final Button convertButton = v.findViewById(R.id.convert_currency_button_id);
+        View v = inflater.inflate(R.layout.fragment_history, container, false);
+        EditText historyTextView = v.findViewById(R.id.history_id);
+        EditText exchangeTextView = v.findViewById(R.id.exchange_hist_id);
 
-        final EditText inputEditText = v.findViewById(R.id.input_currency_id);
-        final EditText resultEditText = v.findViewById(R.id.result_currency_id);
+        historyTextView.setEnabled(false);
+        exchangeTextView.setEnabled(false);
 
-        final Spinner currencyFromDropdownSpinner = v.findViewById(R.id.from_currency_spinner);
-        final Spinner currencyToDropdownSpinner = v.findViewById(R.id.to_currency_spinner);
+        historyTextView.setText(appDatabase.conversionResultsDAO().getAll().toString());
 
-        return inflater.inflate(R.layout.fragment_currencies, container, false);
+
+        return v;
     }
 
 
@@ -68,14 +77,8 @@ public class Currencies_Fragment extends Fragment {
         mListener = null;
     }
 
-
     public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    public String[] fromListToArray(List<String> list, String[] result) {
-        result = new String[list.size()];
-        result = list.toArray(result);
-        return result;
     }
 }

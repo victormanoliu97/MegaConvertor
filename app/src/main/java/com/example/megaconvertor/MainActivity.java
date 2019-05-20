@@ -10,6 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.megaconvertor.fragments.Currencies_Fragment;
+import com.example.megaconvertor.fragments.HistoryFragment;
+import com.example.megaconvertor.fragments.MainFragment;
+import com.example.megaconvertor.fragments.Physic_Measures_Fragment;
+
 public class MainActivity extends AppCompatActivity implements Physic_Measures_Fragment.OnFragmentInteractionListener, HistoryFragment.OnFragmentInteractionListener, Currencies_Fragment.OnFragmentInteractionListener, MainFragment.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements Physic_Measures_F
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
 
     }
 

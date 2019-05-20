@@ -16,9 +16,29 @@
     <EditText
         android:id="@+id/history_id"
         android:layout_width="match_parent"
-        android:layout_height="579dp"
+        android:layout_height="121dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="100dp"
+        android:ems="19"
+        android:hint="@string/result_edit_text_hint"
+        android:inputType="text" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_fragment_exchange_rates"
+        android:ems="50"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginTop="260dp"/>
+
+    <EditText
+        android:id="@+id/exchange_hist_id"
+        android:layout_width="match_parent"
+        android:layout_height="121dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="330dp"
         android:ems="19"
         android:hint="@string/result_edit_text_hint"
         android:inputType="text" />

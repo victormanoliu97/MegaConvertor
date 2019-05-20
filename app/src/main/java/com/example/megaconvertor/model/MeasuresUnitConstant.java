@@ -63,14 +63,14 @@ public  class MeasuresUnitConstant {
         return pressureUnits;
     }
 
-    public List<String> returnCurencyUnits() {
+    public List<String> returnCurrencyUnits() {
         currencyUnits.add(NOTHING_SELECTED);
-        pressureUnits.add(EURO);
-        pressureUnits.add(USD);
-        pressureUnits.add(GBP);
-        pressureUnits.add(RON);
-        pressureUnits.add(HUF);
-        pressureUnits.add(CHF);
+        currencyUnits.add(EURO);
+        currencyUnits.add(USD);
+        currencyUnits.add(GBP);
+        currencyUnits.add(RON);
+        currencyUnits.add(HUF);
+        currencyUnits.add(CHF);
         return currencyUnits;
     }
 }
