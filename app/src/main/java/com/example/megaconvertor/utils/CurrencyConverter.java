@@ -1,5 +1,6 @@
 package com.example.megaconvertor.utils;
 
+import com.example.megaconvertor.model.MeasuresUnitConstant;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -21,6 +22,37 @@ public class CurrencyConverter {
     public JsonObject getLatestCurrencyRates(String fromUnit, String toUnit) throws IOException, JSONException {
 
         URL url = new URL(BASE_URL_LATEST_RATES + fromUnit + "&symbols=" + toUnit);
+
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setRequestMethod("GET");
+        urlConnection.setRequestProperty("User-Agent", USER_AGENT);
+
+        StringBuilder builder = null;
+        if(urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            String line;
+            builder = new StringBuilder();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+            }
+        }
+        JSONObject jsonObject = null;
+        if (builder != null) {
+            jsonObject = new JSONObject(builder.toString());
+        }
+
+        JsonParser jsonParser = new JsonParser();
+
+        return jsonParser.parse(String.valueOf(jsonObject)).getAsJsonObject();
+    }
+
+
+    public JsonObject getCurrentRatesRelativeToEuro() throws IOException, JSONException {
+
+        URL url = new URL(BASE_URL_LATEST_RATES + "EUR" + "&symbols=" + MeasuresUnitConstant.USD + "," + MeasuresUnitConstant.GBP + "," + MeasuresUnitConstant.RON + ","
+                + MeasuresUnitConstant.HUF + "," + MeasuresUnitConstant.CHF);
 
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.setRequestMethod("GET");

@@ -20,6 +20,7 @@ import com.example.megaconvertor.R;
 import com.example.megaconvertor.database.AppDatabase;
 import com.example.megaconvertor.entity.ExchangeRates;
 import com.example.megaconvertor.model.MeasuresUnitConstant;
+import com.example.megaconvertor.service.MakeCurrencyRequestService;
 import com.example.megaconvertor.utils.CurrencyConverter;
 import com.google.gson.JsonElement;
 
@@ -109,7 +110,7 @@ public class Currencies_Fragment extends Fragment {
         convertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Double conversionRate = (double) 0;
+                MakeCurrencyRequestService makeCurrencyRequestService = new MakeCurrencyRequestService();
                 if(selectedFromUnit == null || selectedToUnit == null) {
                     Toast.makeText(getActivity(), "You need to select some units", Toast.LENGTH_SHORT).show();
                 }
@@ -118,27 +119,12 @@ public class Currencies_Fragment extends Fragment {
                 }
                 else {
                     Double inputed = Double.valueOf(inputEditText.getText().toString());
-                    int SDK_INT = android.os.Build.VERSION.SDK_INT;
-                    if(SDK_INT > 8) {
 
-                        // Allow all requests
-                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                                .permitAll().build();
-                        StrictMode.setThreadPolicy(policy);
+                    Double conversionRate = makeCurrencyRequestService.returnConvertionRate(selectedFromUnit, selectedToUnit);
 
-                        String result = "";
-                        try {
-                            JsonElement conversionElement = currencyConverterService.getLatestCurrencyRates(selectedFromUnit, selectedToUnit).get("rates");
-                            conversionRate = Double.valueOf(conversionElement.getAsJsonObject().get(selectedToUnit).toString());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    String result = String.valueOf(inputed * conversionRate);
+                    resultEditText.setText(result);
 
-                        result = String.valueOf(inputed * conversionRate);
-                        resultEditText.setText(result);
-                    }
                     //Save currency as history
                     ExchangeRates exchangeRateHistEntity = new ExchangeRates();
                     exchangeRateHistEntity.setBase(selectedFromUnit);

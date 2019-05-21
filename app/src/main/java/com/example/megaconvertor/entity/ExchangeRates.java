@@ -1,6 +1,5 @@
 package com.example.megaconvertor.entity;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -10,13 +9,10 @@ public class ExchangeRates {
     @PrimaryKey(autoGenerate = true)
     private Integer id;
 
-    @ColumnInfo(name = "base")
     private String base;
 
-    @ColumnInfo(name = "symbol")
     private String symbol;
 
-    @ColumnInfo(name = "value")
     private Double value;
 
     public ExchangeRates() {

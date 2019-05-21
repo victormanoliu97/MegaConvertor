@@ -12,7 +12,14 @@ import android.widget.EditText;
 
 import com.example.megaconvertor.R;
 import com.example.megaconvertor.database.AppDatabase;
+import com.example.megaconvertor.service.MakeCurrencyRequestService;
 import com.example.megaconvertor.utils.CurrencyConverter;
+import com.google.gson.JsonElement;
+
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.Objects;
 
 
 public class HistoryFragment extends Fragment {
@@ -34,6 +41,7 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         final AppDatabase appDatabase = Room.databaseBuilder(getContext(), AppDatabase.class, "my-db").allowMainThreadQueries().build();
+        MakeCurrencyRequestService makeCurrencyRequestService = new MakeCurrencyRequestService();
 
         View v = inflater.inflate(R.layout.fragment_history, container, false);
         EditText physicHistoryTextView = v.findViewById(R.id.history_id);
@@ -42,8 +50,9 @@ public class HistoryFragment extends Fragment {
         physicHistoryTextView.setEnabled(false);
         currencyExchangeTextView.setEnabled(false);
 
+
         physicHistoryTextView.setText(appDatabase.conversionResultsDAO().getMostRecent().toString());
-        currencyExchangeTextView.setText(appDatabase.exchangeRatesDAO().getMostRecent().toString());
+        currencyExchangeTextView.setText(makeCurrencyRequestService.getCurrentRatesRelativeToEuro());
 
 
         return v;
